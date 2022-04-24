@@ -2,10 +2,239 @@
 
 * {
   font-family: $font-family;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: map-get($colors, primary, "bright-blue");
+  background-color: map-get($colors, "very-dark-blue");
   font-size: map-get($font-size, h1);
   line-height: 1.5;
+}
+
+.container {
+  @include flex-box(center, center, column);
+  height: 100vh;
+  width: 720px;
+  margin: auto;
+
+  nav {
+    font-size: map-get($font-size, m);
+    color: map-get($colors, white);
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .search {
+    width: 100%;
+    height: 54px;
+    background-color: map-get($colors, dark-blue);
+    border-radius: 16px;
+    padding: 2rem;
+    padding-right: 1rem;
+
+    @include flex-box(space-between, center);
+
+    .icon {
+      color: map-get($colors, sky-blue);
+      font-size: map-get($font-size, l);
+    }
+
+    input {
+      background-color: transparent;
+      border: transparent;
+      height: inherit;
+      flex-grow: 1;
+      margin: 0.5rem 1rem;
+      color: map-get($colors, white);
+      font-weight: 700;
+      font-size: map-get($font-size, sm);
+
+      &:focus {
+        caret-color: map-get($colors, sky-blue);
+        outline: none;
+        border: transparent;
+        background-color: transparent;
+      }
+
+      &:valid {
+        background-color: transparent;
+      }
+
+      &::selection {
+        background-color: map-get($colors, $key: green);
+      }
+    }
+
+    button {
+      position: relative;
+      @include button(map-get($colors, white), map-get($colors, sky-blue));
+    }
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 25% 70%;
+    grid-template-rows: 40% 40% 20%;
+    column-gap: 2rem;
+    justify-items: center;
+    align-items: center;
+    background-color: map-get($colors, dark-blue);
+    height: 420px;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 3rem;
+    border-radius: $border-radius;
+    font-size: map-get($font-size, base);
+    color: map-get($colors, white);
+
+    a {
+      text-decoration: none;
+      color: map-get($colors, white);
+    }
+
+    .img-container {
+      @include flex-box(center, center, column);
+      grid-row: 1 / span 1;
+      align-self: center;
+
+      img {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+      }
+    }
+
+    .btn-github {
+      grid-row: 2 / span 1;
+      align-self: flex-start;
+      button {
+        @include button(map-get($colors, white), map-get($colors, green));
+        @include flex-box(center, center);
+        width: 100%;
+        margin: 2rem auto;
+        cursor: pointer;
+      }
+    }
+
+    .user-info {
+      width: 100%;
+      height: 100%;
+      font-weight: 400;
+      line-height: map-get($line-height, l);
+      display: grid;
+      justify-items: start;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: repeat(3, 1fr);
+      align-items: center;
+
+      & .name {
+        text-align: left;
+        font-size: 1.5em;
+        font-weight: 700;
+        align-self: baseline;
+      }
+
+      & .date {
+        justify-self: end;
+        align-self: baseline;
+      }
+
+      .username {
+        grid-column: 1 / span 2;
+        color: map-get($colors, sky-blue);
+      }
+
+      .bio {
+        grid-column: 1 / span 2;
+      }
+    }
+
+    .stats {
+      @include flex-box(center, center);
+      background-color: map-get($colors, very-dark-blue);
+      height: 60%;
+      width: 100%;
+      border-radius: $border-radius;
+      grid-column: 2 / span 1;
+      grid-row: 2 / span 1;
+
+      &-group {
+        @include flex-box(space-evenly, center);
+        width: 100%;
+
+        .stats-item {
+          @include flex-box(center, center, column);
+
+          color: map-get($map: $colors, $key: white);
+          font-size: map-get($map: $font-size, $key: base);
+
+          & span {
+            font-size: map-get($map: $font-size, $key: m);
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .additional-info {
+      padding-top: 1.5rem;
+      display: grid;
+      height: 100%;
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      column-gap: 2rem;
+      justify-items: start;
+      align-content: center;
+      grid-row: 3 / span 1;
+      grid-column: 2 / span 1;
+
+      &-item {
+        width: 100%;
+        @include flex-box(start, center);
+
+        a,
+        p {
+          font-size: clamp(0.5rem, 1vw, 0.9rem);
+          text-align: left;
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    .disable {
+      color: map-get($colors, gray);
+      @include flex-box(start, center);
+    }
+    .icon {
+      font-size: map-get($font-size, sm);
+      width: 20px;
+      margin-right: 0.8rem;
+    }
+  }
+
+  .card-404 {
+    @include flex-box(center, center, column);
+    background-color: map-get($colors, dark-blue);
+    height: 420px;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 3rem;
+    border-radius: $border-radius;
+    font-size: map-get($font-size, base);
+    color: map-get($colors, white);
+
+    img {
+      width: 300px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: map-get($font-size, xl);
+
+      span {
+        color: map-get($colors, red-pastel);
+      }
+    }
+  }
 }

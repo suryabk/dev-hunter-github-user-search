@@ -1,10 +1,11 @@
 import "./App.css";
-import DevFinder from "./pages/DevFinder";
+import DevHunter from "./pages/DevHunter";
+import "./scss/main.scss";
 
 function App() {
   return (
     <div className="App">
-      <DevFinder />
+      <DevHunter />
     </div>
   );
 }

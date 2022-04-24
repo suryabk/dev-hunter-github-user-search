@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
+import Card from "../components/Card";
 import Form from "../components/Form";
 
-function DevFinder() {
+function DevHunter() {
   const [userInput, setUserInput] = useState("");
+  const [searchResult, setSearchResult] = useState(true);
 
   const [searchUser, setSearchUser] = useState({
     name: "The Octocat",
@@ -31,7 +32,7 @@ function DevFinder() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          setSearchResult(true);
           setSearchUser({
             name: data.name,
             username: data.login,
@@ -42,31 +43,31 @@ function DevFinder() {
             location: data.location,
             bio: data.bio,
             twitter: data.twitter_username,
-            repo: data.public_repos,
+            repos: data.public_repos,
             followers: data.followers,
             following: data.following,
             created_at: data.created_at,
             updated_at: data.updated_at,
           });
+        } else {
+          setSearchResult(false);
         }
       } catch (error) {
-        console.log("User Not Found");
+        console.log(error);
       }
     }
   };
   return (
     <div className="container">
+      <nav className="logo">devHunter</nav>
       <Form
         value={userInput}
         keyword={(e) => setUserInput(e.target.value)}
         searchBtn={(e) => handleSubmit(e)}
       />
-      <div className="card">
-        <img src={searchUser.avatar_url} alt="" />
-        <h1>{searchUser.name}</h1>
-      </div>
+      <Card data={searchUser} result={searchResult} />
     </div>
   );
 }
 
-export default DevFinder;
+export default DevHunter;
